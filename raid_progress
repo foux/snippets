@@ -14,16 +14,23 @@ convertsecs() {
 	fi
 }
 
+checkprogress() {
+	FIRST_LINE=$1
+	LAST_LINE=$2
+	HEAD=$3
+
+	REMAINING_MINS=$(echo $LAST_LINE | cut -d"]" -f 2 | cut -d"=" -f3 | cut -d "m" -f 1)
+	REMAINING_SECS_DOUBLE=$(echo "$REMAINING_MINS*60" | bc)
+	REMAINING_SECS_INT=$(echo $REMAINING_SECS_DOUBLE | cut -d"." -f 1)
+	DEVICE=$(echo $FIRST_LINE | cut -d' ' -f 1)
+	PROGRESS=$(echo $LAST_LINE | cut -d"]" -f 2 | cut -d"=" -f2 | cut -d ' ' -f 2)
+
+	echo $HEAD $DEVICE " (" $PROGRESS "), Temps restant : " $(convertsecs $REMAINING_SECS_INT) " ETA : " `date -d "+ $REMAINING_SECS_INT seconds"`
+}
 
 RESHAPE=$(cat /proc/mdstat | grep reshape)
 
 if [[ $RESHAPE ]]; then
-	LAST_LINE=$RESHAPE
 	FIRST_LINE=$(cat /proc/mdstat | grep -B 2 reshape | head -1)
-	RESHAPE_MINS=$(echo $LAST_LINE | cut -d"]" -f 2 | cut -d"=" -f3 | cut -d "m" -f 1)
-	RESHAPE_SECS_DOUBLE=$(echo "$RESHAPE_MINS*60" | bc)
-	RESHAPE_SECS_INT=$(echo $RESHAPE_SECS_DOUBLE | cut -d"." -f 1)
-	RESHAPE_DEVICE=$(echo $FIRST_LINE | cut -d' ' -f 1)
-	PROGRESS=$(echo $LAST_LINE | cut -d"]" -f 2 | cut -d"=" -f2 | cut -d ' ' -f 2)
-	echo "Reshape en cours de " $RESHAPE_DEVICE " (" $PROGRESS "). Temps restant : " $(convertsecs $RESHAPE_SECS_INT) " ETA : " `date -d "+ $RESHAPE_SECS_INT seconds"`
+	echo $(checkprogress "$FIRST_LINE" "$RESHAPE" "Reshape en cours de ")
 fi
