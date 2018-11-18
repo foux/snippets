@@ -44,6 +44,6 @@ elif [[ $RESYNC ]]; then
 	FIRST_LINE=$(cat /proc/mdstat | grep -B 2 "\[\=*>\.*\]\s*resync" | head -1)
 fi
 
-if [[ $DELAYED ]]; then
+if (( $DELAYED > 0 )); then
 	echo $DELAYED "opération(s) en attente"
 fi
