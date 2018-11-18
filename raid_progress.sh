@@ -29,13 +29,21 @@ checkprogress() {
 	echo $HEAD $DEVICE " (" $SPEED "-" $PROGRESS "), Temps restant : " $(convertsecs $REMAINING_SECS_INT) " ETA : " `date -d "+ $REMAINING_SECS_INT seconds"`
 }
 
-RESHAPE=$(cat /proc/mdstat | grep reshape)
-RECOVERY=$(cat /proc/mdstat | grep recovery)
+RESHAPE=$(cat /proc/mdstat | grep "\[\=*>\.*\]\s*reshape")
+RECOVERY=$(cat /proc/mdstat | grep "\[\=*>\.*\]\s*recovery")
+RESYNC=$(cat /proc/mdstat | grep "\[\=*>\.*\]\s*resync")
+DELAYED=$(cat /proc/mdstat | grep -c "DELAYED")
 
 if [[ $RESHAPE ]]; then
-	FIRST_LINE=$(cat /proc/mdstat | grep -B 2 reshape | head -1)
+	FIRST_LINE=$(cat /proc/mdstat | grep -B 2 "\[\=*>\.*\]\s*reshape" | head -1)
 	echo $(checkprogress "$FIRST_LINE" "$RESHAPE" "Reshape en cours de ")
 elif [[ $RECOVERY ]]; then
-	FIRST_LINE=$(cat /proc/mdstat | grep -B 2 recovery | head -1)
+	FIRST_LINE=$(cat /proc/mdstat | grep -B 2 "\[\=*>\.*\]\s*recovery" | head -1)
         echo $(checkprogress "$FIRST_LINE" "$RECOVERY" "Recovery en cours de ")
+elif [[ $RESYNC ]]; then
+	FIRST_LINE=$(cat /proc/mdstat | grep -B 2 "\[\=*>\.*\]\s*resync" | head -1)
+fi
+
+if [[ $DELAYED ]]; then
+	echo $DELAYED "opération(s) en attente"
 fi
