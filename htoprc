@@ -22,5 +22,5 @@ color_scheme=0
 delay=15
 left_meters=LeftCPUs2 Memory Swap CPU 
 left_meter_modes=1 1 1 2 
-right_meters=RightCPUs2 Tasks LoadAverage Uptime 
+right_meters=RightCPUs2 Tasks Blank LoadAverage 
 right_meter_modes=1 2 2 2 
