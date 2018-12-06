@@ -26,5 +26,7 @@ alias ll="ls -l"
 alias la="ls -a"
 alias lla="ls -la"
 
+test -e "${HOME}/.zshrc.local" && source "${HOME}/.zshrc.local"
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
