@@ -25,3 +25,6 @@ export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs history time)
 alias ll="ls -l"
 alias la="ls -a"
 alias lla="ls -la"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
