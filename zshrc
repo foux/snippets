@@ -1,7 +1,15 @@
 #!/bin/zsh
 
-#Completion
-source /usr/share/zsh-antigen/antigen.zsh
+# Detection OS
+if [[ `uname` == 'Linux' ]]; then
+	export OS=linux
+	source /usr/share/zsh-antigen/antigen.zsh
+elif [[ `uname` == 'Darwin' ]]; then
+	export OS=osx
+	source /usr/local/share/antigen/antigen.zsh
+fi
+
+#Antigen
 antigen use oh-my-zsh
 
 POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
