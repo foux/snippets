@@ -34,6 +34,9 @@ alias ll="ls -l"
 alias la="ls -a"
 alias lla="ls -la"
 
+# Extended globs
+setopt extendedglob
+
 test -e "${HOME}/.zshrc.local" && source "${HOME}/.zshrc.local"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
