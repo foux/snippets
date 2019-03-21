@@ -36,8 +36,8 @@ alias lla="ls -la"
 
 # History
 export HISTFILE="${HOME}/.zsh_history"
-export HISTSIZE=20000
-export SAVEHIST=20000
+export HISTSIZE=50000
+export SAVEHIST=50000
 
 # Extended globs
 setopt extendedglob
