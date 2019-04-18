@@ -1,7 +1,11 @@
 #!/bin/zsh
 
 # Detection OS
-if [[ `uname` == 'Linux' ]]; then
+if [ -f /etc/synopackageslimit.conf ]; then
+	export OS=Synology
+	export TERM="xterm-256color"
+	source ~/antigen.zsh
+elif [[ `uname` == 'Linux' ]]; then
 	export OS=linux
 	source /usr/share/zsh-antigen/antigen.zsh
 elif [[ `uname` == 'Darwin' ]]; then
