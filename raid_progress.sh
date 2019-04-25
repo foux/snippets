@@ -43,6 +43,8 @@ elif [[ $RECOVERY ]]; then
 elif [[ $RESYNC ]]; then
 	FIRST_LINE=$(cat /proc/mdstat | grep -B 2 "\[\=*>\.*\]\s*resync" | head -1)
 	echo $(checkprogress "$FIRST_LINE" "$RESYNC" "Resync en cours de ")
+else
+	echo "Aucune opération en cours 🤩 🍾🎉"
 fi
 
 if (( $DELAYED > 0 )); then
