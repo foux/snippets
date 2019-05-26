@@ -4,16 +4,23 @@
 if [ -f /etc/synopackageslimit.conf ]; then
 	export OS=Synology
 	export TERM="xterm-256color"
-	source ~/antigen.zsh
 elif [[ `uname` == 'Linux' ]]; then
 	export OS=linux
-	source /usr/share/zsh-antigen/antigen.zsh
 elif [[ `uname` == 'Darwin' ]]; then
 	export OS=osx
-	source /usr/local/share/antigen/antigen.zsh
 fi
 
 #Antigen
+## On préfére le local s'il est la
+if [ -f ~/antigen.zsh ]; then
+	source ~/antigen.zsh
+## Sinon on cherche les autres
+elif [ -f /usr/share/zsh-antigen/antigen.zsh ]; then
+	source /usr/share/zsh-antigen/antigen.zsh
+elif [ -f /usr/local/share/antigen/antigen.zsh ]; then
+	source /usr/local/share/antigen/antigen.zsh
+fi
+
 antigen use oh-my-zsh
 
 POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
@@ -42,6 +49,9 @@ alias lla="ls -la"
 export HISTFILE="${HOME}/.zsh_history"
 export HISTSIZE=50000
 export SAVEHIST=50000
+
+# Path
+export PATH=$PATH:~/.local/bin
 
 # Extended globs
 setopt extendedglob
