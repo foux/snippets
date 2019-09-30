@@ -34,6 +34,7 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle "greymd/docker-zsh-completion"
+antigen bundle kubectl
 
 antigen theme bhilburn/powerlevel9k powerlevel9k
 antigen apply
