@@ -35,11 +35,13 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle "greymd/docker-zsh-completion"
 antigen bundle kubectl
+antigen bundle virtualenv
 
 antigen theme bhilburn/powerlevel9k powerlevel9k
 antigen apply
 
 # powerlevel9k settings
+export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir virtualenv vcs)
 export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(background_jobs history time)
 
 # Alias ls
