@@ -32,6 +32,7 @@ checkprogress() {
 RESHAPE=$(cat /proc/mdstat | grep "\[\=*>\.*\]\s*reshape")
 RECOVERY=$(cat /proc/mdstat | grep "\[\=*>\.*\]\s*recovery")
 RESYNC=$(cat /proc/mdstat | grep "\[\=*>\.*\]\s*resync")
+CHECK=$(cat /proc/mdstat | grep "\[\=*>\.*\]\s*check")
 DELAYED=$(cat /proc/mdstat | grep -c "DELAYED")
 
 if [[ $RESHAPE ]]; then
@@ -43,6 +44,9 @@ elif [[ $RECOVERY ]]; then
 elif [[ $RESYNC ]]; then
 	FIRST_LINE=$(cat /proc/mdstat | grep -B 2 "\[\=*>\.*\]\s*resync" | head -1)
 	echo $(checkprogress "$FIRST_LINE" "$RESYNC" "Resync en cours de ")
+elif [[ $CHECK ]]; then
+        FIRST_LINE=$(cat /proc/mdstat | grep -B 2 "\[\=*>\.*\]\s*check" | head -1)
+        echo $(checkprogress "$FIRST_LINE" "$CHECK" "Check en cours de ")
 else
 	echo "Aucune opération en cours 🤩 🍾🎉"
 fi
